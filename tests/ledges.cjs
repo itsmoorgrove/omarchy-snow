@@ -1,0 +1,34 @@
+const fs = require('node:fs');
+const vm = require('node:vm');
+const assert = require('node:assert/strict');
+const path = require('node:path');
+const source = fs.readFileSync(path.join(__dirname, '../Ledges.js'), 'utf8');
+const api = vm.createContext({});
+vm.runInContext(source.replace(/^\.pragma library\s*/, ''), api);
+const monitor = {x: 1920, y: -100, activeWorkspace: {id: 2}, specialWorkspace: {id: 0}};
+const window = (id, x, y, w, h, extra = {}) => ({address: id, at: [1920 + x, -100 + y], size: [w,h], workspace: {id:2}, mapped:true, focusHistoryID:1, ...extra});
+const base = window('0xa', 50, 60, 600, 400);
+const edges = api.visibleLedges([base], monitor, 1000, 800);
+assert.equal(edges.length, 3);
+assert.equal(edges[0].x, 59);
+assert.equal(edges[0].y, 61);
+assert.equal(api.visibleLedges([window('x', 0,0,500,500,{workspace:{id:3}})], monitor,1000,800).length,0);
+assert.equal(api.visibleLedges([window('x',0,0,500,500,{hidden:true})],monitor,1000,800).length,0);
+assert.equal(api.visibleLedges([window('x',NaN,0,500,500)],monitor,1000,800).length,0);
+const cover = window('0xb', 300, 40, 200, 500, {floating:true,focusHistoryID:0});
+const occluded = api.visibleLedges([base,cover],monitor,1000,800).filter(e => e.key.startsWith('0xa:top'));
+assert.equal(occluded.length,2);
+assert.ok(occluded.every(e => e.x + e.width <= 297 || e.x >= 503));
+const full = window('0xf',0,0,1000,800,{fullscreen:2});
+assert.equal(api.visibleLedges([base,full],monitor,1000,800).length,0);
+const specialMonitor = {...monitor,specialWorkspace:{id:-99}};
+assert.ok(api.visibleLedges([window('s',10,40,200,300,{workspace:{id:-99}})],specialMonitor,1000,800).length > 0);
+const hostile = {...base,title:'<img src="https://example.invalid/tracker">'};
+assert.equal(JSON.stringify(api.visibleLedges([hostile],monitor,1000,800)),JSON.stringify(edges));
+const widget = fs.readFileSync(path.join(__dirname,'../BarWidget.qml'),'utf8');
+assert.match(widget,/tooltipText: strings.t\("snow.hint"\)/);
+for (const lang of ['en','sv']) {
+ const catalog=JSON.parse(fs.readFileSync(path.join(__dirname,`../i18n/${lang}.json`),'utf8'));
+ assert.ok(Object.values(catalog).every(v => typeof v === 'string' && !/[<>&]/.test(v)));
+}
+console.log('PASS: workspace/monitor geometry, occlusion, fullscreen, special workspace, invalid data, markup and tooltip sinks');

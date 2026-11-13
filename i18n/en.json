@@ -1,0 +1,16 @@
+{
+  "snow.hint": "Snowfall · left click to toggle · right click for settings",
+  "settings.title": "Snowfall",
+  "settings.snow": "Snowfall now",
+  "settings.automatic": "Follow the weather",
+  "settings.location": "Weather location: %1",
+  "settings.privacy": "When enabled, checks Open-Meteo every 10 minutes using the location from Omarchy Weather. Left click returns to manual control.",
+  "settings.refresh": "Refresh weather",
+  "status.manual": "Manual control",
+  "status.waiting": "Waiting for weather…",
+  "status.checking": "Checking the weather…",
+  "status.location": "Select a location with coordinates in Omarchy Weather.",
+  "status.snowing": "Snow outside — snowfall is on",
+  "status.clear": "No snow outside — waiting for snowfall",
+  "status.error": "Weather unavailable. Old data expires after 90 minutes."
+}

@@ -1,0 +1,16 @@
+{
+  "snow.hint": "Snöfall · vänsterklick slår av/på · högerklick öppnar inställningar",
+  "settings.title": "Snöfall",
+  "settings.snow": "Snöfall nu",
+  "settings.automatic": "Följ vädret",
+  "settings.location": "Väderort: %1",
+  "settings.privacy": "När funktionen är på kontrolleras Open-Meteo var tionde minut för orten i Omarchy Väder. Vänsterklick återgår till manuell styrning.",
+  "settings.refresh": "Uppdatera vädret",
+  "status.manual": "Manuell styrning",
+  "status.waiting": "Väntar på vädret…",
+  "status.checking": "Kontrollerar vädret…",
+  "status.location": "Välj en ort med koordinater i Omarchy Väder.",
+  "status.snowing": "Det snöar ute — snöfallet är på",
+  "status.clear": "Ingen snö ute — väntar på snöfall",
+  "status.error": "Vädret kan inte hämtas. Gammal data slutar gälla efter 90 minuter."
+}

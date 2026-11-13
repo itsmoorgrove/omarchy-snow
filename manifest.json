@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "local.snow",
+  "name": "Snowfall",
+  "version": "1.1.0",
+  "author": "moorgrove",
+  "license": "MIT",
+  "description": "Quiet, layered snowfall and delicate snow along visible window edges.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Snowfall",
+    "description": "Toggle snowfall on all displays",
+    "category": "Desktop",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "automatic": false
+    }
+  }
+}
